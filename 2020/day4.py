@@ -1,5 +1,5 @@
 
-def extra_check(passport):
+def check(passport):
     if not 1920 <= int(passport["byr"]) <= 2002:
         return False
     if not 2010 <= int(passport["iyr"]) <= 2020:
@@ -39,11 +39,14 @@ def extra_check(passport):
             return False
     return True
 
-def passport_contains(passport, contains):
+def passport_contains(passport, contains, extra_check):
     for c in contains:
         if not c in passport:
             return False
-    return extra_check(passport)
+    if extra_check:
+        return check(passport)
+    else:
+        return True
 
 
 def dictionarify(passport):
@@ -56,18 +59,24 @@ def dictionarify(passport):
     return store
 
 
-def ans(lines, contains=["byr","iyr","eyr","hgt","hcl","ecl","pid"]):
+def ans(lines, contains=["byr","iyr","eyr","hgt","hcl","ecl","pid"], extra_check=False):
     count = 0
     for line in lines:
         passport = dictionarify(line)
-        if passport_contains(passport, contains):
+        if passport_contains(passport, contains, extra_check):
             count += 1
     return count
 
 
-f = open("day4.txt", "r")
+f = open("./txt/day4.txt", "r")
 text = f.read()
 # text.replace("\n", " ")
 lines = text.split("\n\n")
 out = ans(lines)
-print(out)
+print("Part 1")
+print("{} of the passports are valid.".format(out))
+
+
+out = ans(lines, extra_check=True)
+print("Part 2")
+print("{} of the passports are valid with extra checking.".format(out))

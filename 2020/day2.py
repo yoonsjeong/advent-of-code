@@ -29,12 +29,14 @@ def check_2(incl, excl, letter, password):
   return cond1 != cond2
 
 
-f = open("day2.txt", "r")
+f = open("./txt/day2.txt", "r")
 text = f.read()
 lines = text.split("\n")
 f.close()
 
 out = count_valid(lines, check_1)
+print("Part 1")
 print("Of {} passwords, {} are valid.".format(len(lines), out))
 out = count_valid(lines, check_2)
+print("Part 2")
 print("Of {} passwords, {} are valid.".format(len(lines), out))
