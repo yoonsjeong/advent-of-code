@@ -1,0 +1,9 @@
+# Build results
+debug/
+release/
+x64/
+bin/
+obj/
+
+# Visual Studio Code
+.vscode/
